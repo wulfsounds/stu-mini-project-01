@@ -6,7 +6,8 @@ const diagDb = require("../db/diagnostics.json");
 // GET Route for retrieving diagnostic information
 diagnostics.get("/", (req, res) => {
 	// TODO: Logic for sending all the content of db/diagnostics.json
-	res.json(diagDb);
+	// res.json(diagDb);
+  readFromFile('./db/.json').then((data) => res.json(JSON.parse(data)));
 });
 
 // POST Route for a error logging
@@ -21,7 +22,7 @@ diagnostics.post("/", (req, res) => {
 			error_id: uuidv4(),
 		};
 
-		readAndAppend(diagPush, "./db/diagnostics.json");
+		readAndAppend(diagDb, "./db/diagnostics.json");
 
 		const response = {
 			status: "success",
